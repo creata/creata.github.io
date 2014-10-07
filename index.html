@@ -49,6 +49,7 @@
 				    type: 'PUT',
 				    url: 'http://api.creata.io/email',
 				    contentType: 'application/json',
+				    crossDomain: true,
 				    accepts: 'application/json',
 				    data: JSON.stringify({'email': email})
 				}).done(function(data){
