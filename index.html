@@ -50,7 +50,6 @@
 				    url: 'http://api.creata.io/email',
 				    contentType: 'application/json',
 				    accepts: 'application/json',
-				    dataType: 'jsonp',
 				    data: JSON.stringify({'email': email})
 				}).done(function(data){
 					jQuery('#notification-error').hide();
