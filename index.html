@@ -35,6 +35,45 @@
 		<link rel="stylesheet" type="text/css" href="stylesheets/ie.css" />
 	<![endif]-->
 
+
+	<script type="text/javascript">
+		function isEmail(email) {
+		    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		    return regex.test(email);
+		}
+
+		function saveEmail(){
+			var email = jQuery('#email').val();
+			if(isEmail(email)){
+				jQuery.ajax({
+				    type: "PUT",
+				    url: 'http://immense-thicket-5467.herokuapp.com/email',
+				    contentType: 'application/json',
+				    accepts: 'application/json',
+				    data: {'email': email}
+				}).done(function(data){
+					jQuery('#notification-error').hide();
+					jQuery('#notification-success').show();
+				}).fail(function(data){
+					jQuery('#notification-error').show();
+					jQuery('#notification-success').hide();
+				});
+			} else {
+				jQuery('#notification-error').show();
+				jQuery('#notification-success').hide();
+			}
+		}
+
+	    jQuery(function() {
+	        jQuery( "input[type=submit], a, button" )
+		        .button()
+		        .click(function( event ) {
+		          event.preventDefault();
+		          saveEmail();
+	        });
+	    });
+	</script>
+
 </head>
 
 <body>
@@ -111,7 +150,7 @@
 		<div class="content-box one-third column">
 			<img src="images/icons/design.png" alt="">
 			<h3>Discover</h3>
-			<p>Discover relevant content from topics that matter for you.</p>
+			<p>Discover relevant content from topics that matter to you.</p>
 		</div>
 		<div class="content-box one-third column">
 			<img src="images/icons/setup.png" alt="">
@@ -223,18 +262,20 @@
 
 	<!-- Begin Subscribe -->
 	<section class="subscribe container">
-		<h2>Signup to be notified when we launch.</h2>
-		<form action="#" method="post" class="clearfix">
-			<input type="text" name="email" value="" class="text">
-			<input type="submit" value="Subscribe now" name="subscribe" class="submit" id="subscribe">
-			<p class="sub-heading twelve columns offset-by-four">Be the first to know when we launch. We think that spam is for jerks. And jerks we are not.</p>
-			<div class="notification success closeable sixteen columns">
+		<h2>Sign up to be notified when we launch.</h2>
+		<div class="clearfix">
+			<input type="text" id="email" name="email" value="" class="text">
+			<input type="button" value="Subscribe now" name="subscribe" class="submit" id="subscribe" onclick="saveEmail();">
+
+			<div id="notification-success" class="notification success closeable sixteen columns">
 				<p><strong>Success!</strong> You have subscribed to email.</p>
 			</div>
-			<div class="notification error closeable sixteen columns">
+			<div id="notification-error" class="notification error closeable sixteen columns">
 				<p><strong>Oops!</strong> Something is wrong, maybe double checking your email will help.</p>
 			</div>
-		</form>
+
+			<p class="sub-heading twelve columns offset-by-four">Be the first to know when we launch. We think that spam is for jerks. And jerks we are not.</p>
+		</div>
 		<div class="small-border"></div>
 		<ul class="social-list clearfix">
 			<!--<li><a href="#" target="_blank"><img src="images/icons/facebook.png" alt=""></a></li>-->
