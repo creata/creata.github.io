@@ -48,8 +48,6 @@
 				jQuery.ajax({
 				    type: "POST",
 				    url: 'http://api.creata.io/email',
-				    contentType: 'application/json',
-				    accepts: 'application/json',
 				    data: JSON.stringify({'email': email}),
 				    dataType: 'application/json'
 				}).done(function(data){
