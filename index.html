@@ -46,12 +46,12 @@
 			var email = jQuery('#email').val();
 			if(isEmail(email)){
 				jQuery.ajax({
-				    type: 'PUT',
+				    type: "POST",
 				    url: 'http://api.creata.io/email',
 				    contentType: 'application/json',
-				    crossDomain: true,
 				    accepts: 'application/json',
-				    data: JSON.stringify({'email': email})
+				    data: JSON.stringify({'email': email}),
+				    dataType: 'application/json'
 				}).done(function(data){
 					jQuery('#notification-error').hide();
 					jQuery('#notification-success').show();
