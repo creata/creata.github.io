@@ -37,17 +37,6 @@
 
 
 	<script type="text/javascript">
-
-	    jQuery(function() {
-	        jQuery("#subscribe")
-		        .click(function(event) {
-		          event.preventDefault();
-		          saveEmail();
-		          return false;
-	        });
-	    });
-
-
 		function isEmail(email) {
 		    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 		    return regex.test(email);
@@ -62,17 +51,34 @@
 				    data: JSON.stringify({'email': email}),
 				    dataType: 'application/json'
 				}).done(function(data){
-					jQuery('#notification_1').hide();
-					jQuery('#notification_2').show();
+					jQuery('#notification_1').fadeOut();
+					jQuery('#notification_2').fadeIn();
 				}).fail(function(data){
-					jQuery('#notification_1').show();
-					jQuery('#notification_2').hide();
+					jQuery('#notification_1').fadeIn();
+					jQuery('#notification_2').fadeOut();
 				});
 			} else {
-				jQuery('#notification_1').hide();
-				jQuery('#notification_2').show();
+				jQuery('#notification_1').fadeOut();
+				jQuery('#notification_2').fadeIn();
 			}
 		}
+
+		jQuery(function($){
+	        jQuery('form').on("submit",
+	        	function(event) {
+	        		event.preventDefault();
+		            saveEmail();
+		            return false;
+	        	}
+	        );
+
+			jQuery("#subscribe")
+		        .click(function(event) {
+		          event.preventDefault();
+		          saveEmail();
+		          return false;
+	        });
+	    });
 
 	</script>
 
@@ -265,7 +271,7 @@
 	<!-- Begin Subscribe -->
 	<section class="subscribe container">
 		<h2>Sign up to be notified when we launch.</h2>
-		<div class="clearfix">
+		<form action="#" class="clearfix">
 			<input type="text" id="email" name="email" value="" class="text">
 			<input type="button" value="Subscribe now" name="subscribe" class="submit" id="subscribe">
 
@@ -277,7 +283,7 @@
 			</div>
 
 			<p class="sub-heading twelve columns offset-by-four">Be the first to know when we launch. We think that spam is for jerks. And jerks we are not.</p>
-		</div>
+		</form>
 		<div class="small-border"></div>
 		<ul class="social-list clearfix">
 			<!--<li><a href="#" target="_blank"><img src="images/icons/facebook.png" alt=""></a></li>-->
